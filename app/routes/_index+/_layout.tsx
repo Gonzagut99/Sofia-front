@@ -5,6 +5,7 @@ import { ThemeSwitch, useTheme } from "../resources+/theme-switch";
 import { getHints } from "~/utils/client-hints";
 import { getTheme } from "~/utils/theme.server";
 import HomeBgLight from '~/svgs/HomeBgLight.svg'
+import { Footer } from "~/components/ui/custom/Footer";
 
 export const meta: MetaFunction = () => {
   return [
@@ -28,10 +29,11 @@ export default function Index() {
   const { requestInfo } = useLoaderData<typeof loader>();
   const { pathname } = useLocation();
   return (
-    <div>
+    <div className="dark:bg-zinc-900 bg-zinc-100">
+      {/* <div className="dark:bg-zinc-900 min-h-dvh h-full absolute inset-0 w-full !-z-20"></div> */}
       {pathname == "/" && (
         <img
-          className="absolute inset-0 w-full !z-0"
+          className="absolute inset-0 md:-top-[360px] md:scale-x-[-1] lg:-top-[585px] lg:-left-0 xl:-top-[800px] 2xl:-top-[870px] w-full !z-0"
           src={HomeBgLight}
           alt="Background"
         />
@@ -41,9 +43,11 @@ export default function Index() {
       >
         <ThemeSwitch userPreference={requestInfo.userPrefs.theme}></ThemeSwitch>
       </NavigationComponents>
-      <main className="px-3 sm:px-10 md:px-12 lg:px-32 pt-4 pb-8 flex flex-col">
+      <main className="relative z-10 px-3 sm:px-10 md:px-12 lg:px-32 pt-4 pb-8 flex flex-col">
         <Outlet></Outlet>
+        <Footer theme={theme}></Footer>
       </main>
+
     </div>
   );
 }

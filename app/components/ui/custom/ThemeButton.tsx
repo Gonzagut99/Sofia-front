@@ -7,7 +7,7 @@ interface ThemeIconProps {
 }
 export function ThemeButton({ variant,children }: ThemeIconProps) {
   return (
-    <Button className='dark:text-white' type='submit'>
+    <Button className='dark:text-white dark:bg-gradient-primary-bl' type='submit'>
         {variant === 'light' && (
             <Sun />
         )}

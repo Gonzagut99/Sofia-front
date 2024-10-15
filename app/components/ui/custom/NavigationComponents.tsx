@@ -69,13 +69,13 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
   const { y } = useWindowScroll();
 
   const defaultNavbarClassName =
-    "sticky top-0 z-[60] flex justify-between px-2 sm:p-4 py-2 transition-colors duration-500 ease-in";
+    "fixed top-0 z-[60] flex justify-between px-2 sm:p-4 py-2 transition-colors duration-500 ease-in bg-zinc-50/50 backdrop-blur-md dark:bg-zinc-950/50";
 
   let navbarClassName: string;
   if (y > 0) {
     navbarClassName = cn(
       defaultNavbarClassName,
-      "bg-zinc-50/50 backdrop-blur-md dark:bg-zinc-950/80 border-b"
+      "bg-zinc-50/90 backdrop-blur-md dark:bg-zinc-950/90 border-b"
     );
   } else if (isOpen) {
     navbarClassName = cn(
@@ -140,14 +140,14 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
 
     return (
       <nav className="flex justify-center">
-        <div className={cn(navbarClassName, 'max-w-screen-2xl w-full')}>
-          <Logo></Logo>
-          <NavigationMenu className="bg-transparent">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink>
+        <div className={cn(navbarClassName, "w-full justify-center")}>
+          <div className="flex justify-between max-w-screen-2xl w-full px-10">
+            <Logo theme={theme}></Logo>
+            <NavigationMenu className="bg-transparent">
+              <NavigationMenuList>
+                <NavigationMenuItem>
                   <NavLink
-                    to='/'
+                    to="/"
                     className={({ isActive, isPending }) =>
                       cn(className({ isActive, isPending }), "justify-start")
                     }
@@ -155,21 +155,22 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                     <Home></Home>
                     <span>Inicio</span>
                   </NavLink>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              {isLoggedIn && (
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger
-                    className={desktopNavigationTriggerClassName}
-                  >
-                    <Bird></Bird>
-                    <span>Servicios</span>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className={desktopNavigationContentClassname}>
-                    {desktopLinks.servicesLinks.map((link) => {
-                      return (
-                        <NavigationMenuLink key={link.pathName}>
+                </NavigationMenuItem>
+                {isLoggedIn && (
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger
+                      className={desktopNavigationTriggerClassName}
+                    >
+                      <Bird></Bird>
+                      <span>Servicios</span>
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent
+                      className={desktopNavigationContentClassname}
+                    >
+                      {desktopLinks.servicesLinks.map((link) => {
+                        return (
                           <NavLink
+                            key={link.pathName}
                             to={link.href}
                             className={({ isActive, isPending }) =>
                               cn(
@@ -181,15 +182,13 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                             {link.icon()}
                             <span>{link.pathName}</span>
                           </NavLink>
-                        </NavigationMenuLink>
-                      );
-                    })}
-                    <NavigationMenuLink></NavigationMenuLink>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              )}
-              {isLoggedIn && (
-                <NavigationMenuItem>
+                        );
+                      })}
+                      <NavigationMenuLink></NavigationMenuLink>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                )}
+                {isLoggedIn && (
                   <NavigationMenuItem>
                     <NavigationMenuTrigger
                       className={desktopNavigationTriggerClassName}
@@ -197,76 +196,74 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                       <CircleUserRound></CircleUserRound>
                       <span>Sesión</span>
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className={desktopNavigationContentClassname}>
+                    <NavigationMenuContent
+                      className={desktopNavigationContentClassname}
+                    >
                       {desktopLinks.accountLinks.loggedInLinks.map((link) => {
                         return (
-                          <NavigationMenuLink key={link.pathName}>
-                            <NavLink
-                              to={link.href}
-                              className={({ isActive, isPending }) =>
-                                cn(
-                                  className({ isActive, isPending }),
-                                  "justify-start"
-                                )
-                              }
-                            >
-                              {link.icon()}
-                              <span>{link.pathName}</span>
-                            </NavLink>
-                          </NavigationMenuLink>
+                          <NavLink
+                            key={link.pathName}
+                            to={link.href}
+                            className={({ isActive, isPending }) =>
+                              cn(
+                                className({ isActive, isPending }),
+                                "justify-start"
+                              )
+                            }
+                          >
+                            {link.icon()}
+                            <span>{link.pathName}</span>
+                          </NavLink>
                         );
                       })}
                     </NavigationMenuContent>
                   </NavigationMenuItem>
-                </NavigationMenuItem>
-              )}
-              {!isLoggedIn && (
-                <>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink>
+                )}
+                {!isLoggedIn && (
+                  <>
+                    <NavigationMenuItem>
                       <NavLink
                         to={desktopLinks.accountLinks.LogInLink.href}
                         className={({ isActive, isPending }) =>
-                          cn(className({ isActive, isPending }), "justify-start")
+                          cn(
+                            className({ isActive, isPending }),
+                            "justify-start"
+                          )
                         }
                       >
                         <LogIn></LogIn>
                         <span>Iniciar sesión</span>
                       </NavLink>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                </>
-              )}
-                              <NavigationMenuItem>
-                    <NavigationMenuLink>
-                      <NavLink
-                        to={desktopLinks.accountLinks.pricing.href}
-                        className={({ isActive, isPending }) =>
-                          cn(className({ isActive, isPending }), "justify-start")
-                        }
-                      >
-                        <Handshake></Handshake>
-                        <span>Precios</span>
-                      </NavLink>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    {children}
-                  </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+                    </NavigationMenuItem>
+                  </>
+                )}
+                <NavigationMenuItem>
+                  <NavLink
+                    to={desktopLinks.accountLinks.pricing.href}
+                    className={({ isActive, isPending }) =>
+                      cn(className({ isActive, isPending }), "justify-start")
+                    }
+                  >
+                    <Handshake></Handshake>
+                    <span>Precios</span>
+                  </NavLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>{children}</NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
         </div>
       </nav>
     );
   }
 
   return (
-    <nav className={navbarClassName}>
+    <nav className={cn(navbarClassName, 'w-full')}>
       <Logo theme={theme}></Logo>
       <Drawer direction="left" onOpenChange={handleOpenChange}>
         <DrawerTrigger>
           <Hamburger
-            color={theme === "dark" ? "#2462ff" : "#002fff"}
+            color={theme === "dark" ? "#5993FF" : "#002fff"}
             direction="left"
             rounded
             size={28}

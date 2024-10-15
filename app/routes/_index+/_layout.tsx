@@ -1,9 +1,10 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { json, Outlet, useLoaderData } from "@remix-run/react";
+import { json, Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { NavigationComponents } from "~/components/ui/custom/NavigationComponents";
 import { ThemeSwitch, useTheme } from "../resources+/theme-switch";
 import { getHints } from "~/utils/client-hints";
 import { getTheme } from "~/utils/theme.server";
+import HomeBgLight from '~/svgs/HomeBgLight.svg'
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,8 +26,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Index() {
   const theme = useTheme();
   const { requestInfo } = useLoaderData<typeof loader>();
+  const { pathname } = useLocation();
   return (
     <div>
+      {pathname == "/" && (
+        <img
+          className="absolute inset-0 w-full !z-0"
+          src={HomeBgLight}
+          alt="Background"
+        />
+      )}
       <NavigationComponents
         theme={requestInfo.userPrefs.theme || theme || "light"}
       >

@@ -90,7 +90,7 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
   const defaultLinkClassName =
     "flex gap-x-3 text-lg text-zinc-950 dark:text-customPrimary-50";
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   let user: User | null = null;
   if (isLoggedIn) {
     user = {
@@ -233,6 +233,20 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                       >
                         <LogIn></LogIn>
                         <span>Iniciar sesión</span>
+                      </NavLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <NavLink
+                        to={desktopLinks.accountLinks.RegisterLink.href}
+                        className={({ isActive, isPending }) =>
+                          cn(
+                            className({ isActive, isPending }),
+                            "justify-start"
+                          )
+                        }
+                      >
+                        <CircleUserRound></CircleUserRound>
+                        <span>Registrarse</span>
                       </NavLink>
                     </NavigationMenuItem>
                   </>

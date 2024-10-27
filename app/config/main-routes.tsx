@@ -89,8 +89,14 @@ import { Home, BotMessageSquare, GraduationCap, CalendarCheck, CircleUser, Credi
     ],
     LogInLink: {
       href: '/login',
-      pathName: 'Iniciar Sesion',
-      icon: () => <LogIn/>,
+      pathName: 'Iniciar sesión',
+      icon: () => <LogIn />,
+      authentification: false
+    },
+    RegisterLink: {
+      href: '/register',
+      pathName: 'Registrarse',
+      icon: () => <CircleUser/>,
       authentification: false
     },
     pricing:{

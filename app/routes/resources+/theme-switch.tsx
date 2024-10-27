@@ -9,8 +9,6 @@ import { invariantResponse } from '@epic-web/invariant';
 import { useHints } from '~/utils/client-hints';
 import { useRequestInfo } from '~/utils/request-info';
 
-
-
 const ThemeFormSchema = z.object({
   theme: z.enum(["system", "light", "dark"]),
   // this is useful for progressive enhancement

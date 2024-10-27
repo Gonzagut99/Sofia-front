@@ -1,5 +1,5 @@
 import { Link, NavLink, useLocation } from "@remix-run/react";
-import { useState } from "react";
+import { useState } from "react"
 
 import { useMediaQuery } from "~/hooks/useMediaQuery";
 import { Twirl as Hamburger } from 'hamburger-react';
@@ -9,7 +9,7 @@ import { desktopLinks, navLinks } from "~/config/main-routes";
 import { Button, buttonVariants } from "../button";
 import { Bird, CircleUserRound, Handshake, Home, LogIn, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
-import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "../drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "../drawer";
 import { ScrollArea } from "../scroll-area";
 import { P } from "./CustomParagraph";
 import { Separator } from "../separator";
@@ -54,16 +54,26 @@ interface NavigationComponentsProps {
 }
 
 export function NavigationComponents({ children, theme }: NavigationComponentsProps) {
+
   //comportamiento del tamaño de la pantalla
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   //Control de estado y comportamiento del menúbar, del drawer
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  // const [isActiveLinkMobile, setIsActiveLinkMobile] = useState<boolean>(false);
+  
   const handleOpenChange = (newOpenState: boolean) => {
     setIsOpen(newOpenState);
   };
-  const location = useLocation();
-  const pathName = location.pathname;
+
+  const pathName = useLocation().pathname;
+  const currentPath = navLinks.find((route) => {
+    const routeParts = route.href.split('/');
+    if (routeParts.length > 2) {
+      return route.href.split('/')[1] === pathName.split('/')[1];
+    }
+    return route.href === pathName;
+  });
 
   //Comportamiento de scroll para estilizado del navbar
   const { y } = useWindowScroll();
@@ -103,13 +113,6 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
     };
   }
 
-  //   // Escucha los cambios en el tema
-  //   useEffect(() => {
-  //     setThemeColorState(
-  //       theme === 'dark' ? '#fcf64d' : '#0b0b09'
-  //     );
-  //   }, [theme]);
-
   //Switch dependiente del tamaño de pantalla
   if (isDesktop) {
     const activeClassName =
@@ -142,7 +145,9 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
       <nav className="flex justify-center">
         <div className={cn(navbarClassName, "w-full justify-center")}>
           <div className="flex justify-between max-w-screen-2xl w-full px-10">
-            <Logo theme={theme}></Logo>
+            <Link to={'/'}>
+              <Logo theme={theme}></Logo>
+            </Link>
             <NavigationMenu className="bg-transparent">
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -259,7 +264,9 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
 
   return (
     <nav className={cn(navbarClassName, 'w-full')}>
-      <Logo theme={theme}></Logo>
+      <Link to={'/'}>
+        <Logo theme={theme}></Logo>
+      </Link>
       <Drawer direction="left" onOpenChange={handleOpenChange}>
         <DrawerTrigger>
           <Hamburger
@@ -270,7 +277,11 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
             toggled={isOpen}
           />
         </DrawerTrigger>
-        <DrawerContent className="pl-5 sm:py-4 min-h-fit">
+        
+        <DrawerContent className="pl-5 sm:py-4">
+          <DrawerHeader className="hidden">
+            <DrawerTitle></DrawerTitle>
+          </DrawerHeader>
           <ScrollArea className="h-full min-h-fit overflow-auto">
             <section className="pt-4 pr-4 flex justify-between items-start">
               <div className="flex gap-2">
@@ -305,14 +316,20 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
               <ul className="flex flex-col gap-y-3">
                 {navLinks.map((route) => {
                   const Icon = route.icon;
-                  const isActive = pathName.startsWith(route.href);
-                  const activeClassName =
-                    "text-customPrimary-600 dark:text-customPrimary-400";
+                  // const isActive = pathName.startsWith(route.href);
+                  // const activeClassName =
+                  //   "text-customPrimary-600 dark:text-customPrimary-400";
                   //const defultClassName =
                   // ('flex gap-x-3 text-lg text-customSecondary-950 dark:text-customPrimary-50');
-                  const className: string = isActive
-                    ? cn(defaultLinkClassName, activeClassName)
-                    : defaultLinkClassName;
+                  // const className: string = isActive
+                  //   ? cn(defaultLinkClassName, activeClassName)
+                  //   : defaultLinkClassName;
+                  
+                  const defaultClassNavLink = `flex gap-2 text-current dark:text-zinc-50 text-zinc-800 `;
+                  
+                  const activeLinkMobile = 'flex gap-2 dark:text-customPrimary-300 text-customPrimary-700'
+                  //const className = ({isActive}:{isActive:boolean})=>isActive?cn(defaultClassNavLink,activeLinkMobile):defaultClassNavLink
+
                   if (route.authentification && !isLoggedIn) {
                     return null;
                   }
@@ -322,14 +339,14 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                       className="transition duration-100 ease-in transform hover:translate-x-2"
                     >
                       <DrawerClose asChild>
-                        <Link to={route.href}>
-                          <Button variant={"link"} className={className}>
-                            <Icon />
-                            <span className="text-customSecondary-950 dark:text-customPrimary-50">
-                              {route.pathName}
-                            </span>
-                          </Button>
-                        </Link>
+                        <NavLink to={route.href} >
+                            <Button variant={'link'} className={(route.href == currentPath?.href) ? activeLinkMobile : defaultClassNavLink}>
+                              <Icon />
+                              <span className="text-customSecondary-950 dark:text-customPrimary-50">
+                                {route.pathName}
+                              </span>
+                            </Button>
+                        </NavLink>
                       </DrawerClose>
                     </li>
                   );

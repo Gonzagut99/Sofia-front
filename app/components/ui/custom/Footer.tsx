@@ -7,34 +7,34 @@ interface FooterProps {
 }
 export function Footer({theme}: FooterProps) {
     return (
-      <div className="pt-8">
+      <div>
         <Card className="border-none rounded-2xl bg-white dark:bg-zinc-800">
           <footer
             className={
               "md:flex md:items-center md:justify-between p-4 md:p-6 xl:p-8"
             }
           >
-            <div className='flex flex-col md:flex-row gap-4 md:gap-8'>
-              <figure>
+            <div className='flex flex-row gap-2 sm:gap-4 md:gap-8'>
+              <figure className='size-[50px] min-w-[40px]'>
                 {theme == "dark" ? (
                   <img
                     className="size-[50px]"
-                    src="/public/LogoSimboloDark.svg"
+                    src="/LogoSimboloDark.svg"
                     alt="Logo Footer"
                   />
                 ) : (
                   <img
                     className="size-[50px]"
-                    src="/public/LogoSimboloLight.svg"
+                    src="/LogoSimboloLight.svg"
                     alt="Logo Footer"
                   />
                 )}
               </figure>
-              <ul className="flex items-center flex-wrap mb-6 md:mb-0 text-zinc-400 dark:text-zinc-300">
+              <ul className="flex items-start sm:items-center flex-wrap mb-6 md:mb-0 gap-x-2 sm:gap-x-4 md:gap-x-6 text-zinc-400 dark:text-zinc-300">
                 <li>
                   <Link
                     to="#"
-                    className="text-sm font-normal hover:underline mr-4 md:mr-6"
+                    className="text-sm font-normal hover:underline"
                   >
                     Términos y condiciones
                   </Link>
@@ -42,7 +42,7 @@ export function Footer({theme}: FooterProps) {
                 <li>
                   <Link
                     to="#"
-                    className="text-sm font-normal hover:underline mr-4 md:mr-6"
+                    className="text-sm font-normal hover:underline"
                   >
                     Política de privacidad
                   </Link>
@@ -50,7 +50,7 @@ export function Footer({theme}: FooterProps) {
                 <li>
                   <Link
                     to="#"
-                    className="text-sm font-normal hover:underline mr-4 md:mr-6"
+                    className="text-sm font-normal hover:underline"
                   >
                     Licensia
                   </Link>
@@ -58,7 +58,7 @@ export function Footer({theme}: FooterProps) {
                 <li>
                   <Link
                     to="#"
-                    className="text-sm font-normal hover:underline mr-4 md:mr-6"
+                    className="text-sm font-normal hover:underline"
                   >
                     Política de cookies
                   </Link>
@@ -71,18 +71,18 @@ export function Footer({theme}: FooterProps) {
               </ul>
             </div>
             <div className="flex sm:justify-center space-x-6 text-sm text-customPrimary-400 dark:text-customPrimary-300">
-              <Link to="#" className=" hover:text-customPrimary-900">
+              <div className=" hover:text-customPrimary-900">
                 <SocialIcon network="facebook" />
-              </Link>
-              <Link to="#" className=" hover:text-customPrimary-900">
+              </div>
+              <div className=" hover:text-customPrimary-900">
                 <SocialIcon network="instagram" />
-              </Link>
-              <Link to="#" className=" hover:text-customPrimary-900">
+              </div>
+              <div className=" hover:text-customPrimary-900">
                 <SocialIcon network="tiktok" />
-              </Link>
-              <Link to="#" className=" hover:text-customPrimary-900">
+              </div>
+              <div className=" hover:text-customPrimary-900">
                 <SocialIcon network="whatsapp" />
-              </Link>
+              </div>
             </div>
           </footer>
         </Card>

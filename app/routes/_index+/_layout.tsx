@@ -29,7 +29,7 @@ export default function Index() {
   const { requestInfo } = useLoaderData<typeof loader>();
   const { pathname } = useLocation();
   return (
-    <div className="dark:bg-zinc-900 bg-zinc-100">
+    <div className="min-h-dvh dark:bg-zinc-900 bg-zinc-100 grid grid-rows-[auto_1fr_auto] grid-cols-1">
       {/* <div className="dark:bg-zinc-900 min-h-dvh h-full absolute inset-0 w-full !-z-20"></div> */}
       {pathname == "/" && (
         <img
@@ -43,11 +43,12 @@ export default function Index() {
       >
         <ThemeSwitch userPreference={requestInfo.userPrefs.theme}></ThemeSwitch>
       </NavigationComponents>
-      <main className="relative z-10 px-3 sm:px-10 md:px-12 lg:px-32 pt-4 pb-8 flex flex-col">
-        <Outlet></Outlet>
+      <div className="z-10 px-3 sm:px-10 md:px-12 lg:px-32 pt-4 pb-8 ">
+          <Outlet></Outlet>
+      </div>
+      <div className="z-10 px-3 sm:px-10 md:px-12 lg:px-32 pb-8">
         <Footer theme={theme}></Footer>
-      </main>
-
+      </div>
     </div>
   );
 }

@@ -144,7 +144,7 @@ function Index() {
               Bienvenido a Sofía
             </h1>
           </div>
-          <Link className="max-w-80 w-full hidden md:block" to="/body">
+          <Link className="max-w-80 w-full hidden md:block" to="/services">
             <Button
               className="w-full text-3xl py-8 px-12 bg-transparent border border-collapse backdrop-blur-none
               hover:backdrop-blur-lg
@@ -166,7 +166,7 @@ function Index() {
           />
         </figure>
         <div className="flex justify-center">
-          <Link className="max-w-80 w-full block md:hidden" to="/body">
+          <Link className="max-w-80 w-full block md:hidden" to="/services">
             <Button className="w-full text-xl py-6 px-8 border border-collapse transition-all duration-300 hover:scale-125 hover:shadow-lg font-bold shadow-lg border-none outline-none shadow-customPrimary-700/50 dark:shadow-customPrimary-500/50 dark:text-customPrimary-100 flex gap-2">
               <WandSparkles></WandSparkles>
               Comenzar
@@ -267,9 +267,9 @@ function Index() {
                         {card.title}
                       </CardTitle>
                       <CardDescription>
-                        <P className="font-light text-center text-base dark:text-customPrimary-50 text-shadow-zinc-50">
+                        <span className="block text-pretty font-light text-center text-base dark:text-customPrimary-50 text-shadow-zinc-50">
                           {card.description}
-                        </P>
+                        </span>
                       </CardDescription>
                     </CardHeader>
                   </CustomCard>
@@ -337,14 +337,16 @@ function Index() {
           </div>
         </div>
         <div className="flex justify-center">
-          <Button
-            variant={"outline"}
-            size={"lg"}
-            className="max-w-60 flex py-6 w-full md:hidden gap-2 text-2xl border-customPrimary-700 dark:border-customPrimary-400 text-customPrimary-700 dark:text-customPrimary-400"
-          >
-            <WandSparkles></WandSparkles>
-            <span>Comenzar</span>
-          </Button>
+          <Link to={'/services'}>
+            <Button
+              variant={"outline"}
+              size={"lg"}
+              className="max-w-60 flex py-6 w-full md:hidden gap-2 text-2xl border-customPrimary-700 dark:border-customPrimary-400 text-customPrimary-700 dark:text-customPrimary-400"
+            >
+              <WandSparkles></WandSparkles>
+              <span>Comenzar</span>
+            </Button>
+          </Link>
         </div>
       </section>
     </PageContainer>

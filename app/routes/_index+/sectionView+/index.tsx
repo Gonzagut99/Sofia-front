@@ -2,6 +2,15 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { GraduationCap, ChartColumnBig, FileUser, FileStack } from "lucide-react"
 import { Link } from "@remix-run/react";
 import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from "@/components/ui/table"
+import {
     Card,
     CardContent,
     CardDescription,
@@ -25,7 +34,7 @@ const index = () => {
                 </figure>
 
                 <div className="flex flex-col justify-start gap-2">
-                    <h2 className="text-gray-800 font-semibold text-lg md:text-2xl">Sección: BTE-01</h2>
+                    <h2 className="text-gray-800 font-semibold text-base md:text-2xl">Sección: BTE-01</h2>
                     <p className="text-gray-700 font-light text-sm md:text-base">Curso: Proyecto Integrador</p>
                 </div>
 

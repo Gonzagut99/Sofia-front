@@ -9,6 +9,7 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
+import { Button } from "~/components/ui/button"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     return null;
@@ -146,6 +147,15 @@ const index = () => {
                     </Card>
                 </Link>
             </section>
+
+
+            {/* <section className="flex justify-center items-center ">
+                <Link to="/services">
+                    <Button className="w-full p-9 text-white text-sm font-bold md:text-lg dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-gradient-primary-bl hover:bg-gradient-primary-br-hover">
+                        Generar sugerencia de acciones de mejora
+                    </Button>
+                </Link>
+            </section> */}
         </>
     )
 }

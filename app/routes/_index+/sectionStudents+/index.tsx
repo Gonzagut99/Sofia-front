@@ -10,6 +10,14 @@ import {
     TableHeader,
     TableRow,
 } from "~/components/ui/table"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
+import { Button } from "~/components/ui/button"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     return null;
@@ -89,6 +97,12 @@ const index = () => {
                     </TableBody>
                 </Table>
             </div>
+
+            <section className=" flex justify-center items-center">
+                <Link to="/none">
+                    <Button className="text-white text-sm font-semibold md:text-base p-6 dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-gray-600 hover:bg-gray-700">Importar excel</Button>
+                </Link>
+            </section>
 
         </>
     )

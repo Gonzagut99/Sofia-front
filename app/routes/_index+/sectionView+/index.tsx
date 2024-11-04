@@ -2,15 +2,6 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { GraduationCap, ChartColumnBig, FileUser, FileStack } from "lucide-react"
 import { Link } from "@remix-run/react";
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
-import {
     Card,
     CardContent,
     CardDescription,

@@ -4,8 +4,6 @@ import { Link } from "@remix-run/react";
 import TypingAnimation from "~/components/ui/typing-animation";
 import {
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
@@ -13,8 +11,6 @@ import {
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   return null;
 };
-
-import React from 'react'
 
 function index() {
   return (
@@ -40,7 +36,7 @@ function index() {
 
       <section className="flex flex-col justify-center items-center gap-4">
 
-        <Link to="/sectionView" className="w-full md:w-2/4">
+        <Link to="/sections/detail" className="w-full md:w-2/4">
           <Card className="h-full w-full dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-zinc-50 hover:bg-zinc-100 cursor-pointer">
             <CardHeader>
               <CardTitle className="flex flex-row gap-4">

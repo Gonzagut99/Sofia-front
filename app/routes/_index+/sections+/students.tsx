@@ -4,26 +4,16 @@ import { Link } from "@remix-run/react";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "~/components/ui/table"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "~/components/ui/card";
 import { Button } from "~/components/ui/button"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     return null;
 };
-
-import React from 'react'
 
 const index = () => {
     return (

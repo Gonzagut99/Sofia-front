@@ -283,7 +283,7 @@ function Index() {
         <header className="flex flex-col gap-2">
           <h2 className="text-2xl text-center dark:text-customPrimary-100 text-shadow-zinc-50 font-semibold">
             <span className="font-black text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
-              Sofías
+              Sofía
             </span>{" "}
             clasifica a tus estudiantes según su estilo de aprendizaje
           </h2>

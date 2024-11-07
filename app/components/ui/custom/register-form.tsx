@@ -1,118 +1,59 @@
 import AuthCard from "./auth-card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../form";
-import { RegisterSchema } from "schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { Input } from "../input";
 import { Button } from "../button";
-import { z } from "zod";
-import { useState } from "react";
 
 const RegisterForm = () => {
-  const [loading, setLoading] = useState(false);
-  const form = useForm({
-    resolver: zodResolver(RegisterSchema),
-    defaultValues: {
-      email: "",
-      name: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
-
-  const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
-    setLoading(true);
-    console.log(data);
-  };
+  const actionData = useActionData();
+  const navigation = useNavigation(); // Cambiado de useTransition a useNavigation
+  const isSubmitting = navigation.state === "submitting";
 
   return (
-    
-
     <AuthCard
-     
       title={
         <span className="font-black text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
-       Registrate y disfruta  
-      </span> 
-    }
-        
+          Regístrate y disfruta
+        </span>
+      }
       backButtonHref="/login"
-      backButtonLabel="¿Ya tienes una cuenta? Inicie sesión aquí."
+      backButtonLabel="¿Ya tienes una cuenta? Inicia sesión aquí."
     >
-      <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <Form method="post" className="space-y-6">
         <div className="space-y-4">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-          <FormItem>
-            <FormLabel>Correo</FormLabel>
-            <FormControl>
-            <Input
-              {...field}
-              type="email"
-              placeholder="correo@gmail.com"
-            />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-          <FormItem>
-            <FormLabel>Nombre</FormLabel>
-            <FormControl>
-            <Input {...field} placeholder="Escriba su nombre aqui" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-          <FormItem>
-            <FormLabel>Contraseña</FormLabel>
-            <FormControl>
-            <Input {...field} type="password" placeholder="******" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-          <FormItem>
-            <FormLabel>Confirmar contraseña</FormLabel>
-            <FormControl>
-            <Input {...field} type="password" placeholder="******" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-          )}
-        />
+          <div>
+            <label>Correo</label>
+            <Input name="email" type="email" placeholder="correo@gmail.com" />
+            {actionData?.errors?.email && (
+              <p className="text-red-500">{actionData.errors.email}</p>
+            )}
+          </div>
+          <div>
+            <label>Nombre</label>
+            <Input name="name" placeholder="Escriba su nombre" />
+            {actionData?.errors?.name && (
+              <p className="text-red-500">{actionData.errors.name}</p>
+            )}
+          </div>
+          <div>
+            <label>Contraseña</label>
+            <Input name="password" type="password" placeholder="******" />
+            {actionData?.errors?.password && (
+              <p className="text-red-500">{actionData.errors.password}</p>
+            )}
+          </div>
+          <div>
+            <label>Confirmar Contraseña</label>
+            <Input name="confirmPassword" type="password" placeholder="******" />
+            {actionData?.errors?.confirmPassword && (
+              <p className="text-red-500">{actionData.errors.confirmPassword}</p>
+            )}
+          </div>
         </div>
-        <Button type="submit" className="w-full" disabled={loading}>
-        {loading ? "Cargando..." : "Registrarse"}
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Cargando..." : "Registrarse"}
         </Button>
-      </form>
       </Form>
     </AuthCard>
-           
   );
 };
 

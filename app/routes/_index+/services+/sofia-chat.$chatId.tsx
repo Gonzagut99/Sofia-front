@@ -1,10 +1,11 @@
+//import { authenticator } from "~/services/auth.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useEffect, useState } from "react"
 import { useFetcher, useLoaderData } from "@remix-run/react"
 import { ActionFunctionArgs, json } from "@remix-run/node"
 import { Button } from "~/components/ui/button"
 import { Send } from "lucide-react"
-import { Textarea } from "components/ui/textarea"
+import { Textarea } from "~/components/ui/textarea"
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getValidatedFormData, RemixFormProvider, useRemixForm } from 'remix-hook-form'
@@ -21,6 +22,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 const resolver = zodResolver(schema)
 export const loader = async ({ params }: LoaderFunctionArgs) => {
+  //await authenticator.isAuthenticated(request, { failureRedirect: "/login" });
+
   const chatId = params.chatId;
   if (!chatId) {
     throw new Error("chatId is required");

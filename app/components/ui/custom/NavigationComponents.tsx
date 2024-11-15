@@ -1,5 +1,5 @@
 import { Link, NavLink, useLocation } from "@remix-run/react";
-import { useState } from "react";
+import { useState } from "react"
 
 import { useMediaQuery } from "~/hooks/useMediaQuery";
 import { Twirl as Hamburger } from 'hamburger-react';
@@ -9,7 +9,7 @@ import { desktopLinks, navLinks } from "~/config/main-routes";
 import { Button, buttonVariants } from "../button";
 import { Bird, CircleUserRound, Handshake, Home, LogIn, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
-import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "../drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "../drawer";
 import { ScrollArea } from "../scroll-area";
 import { P } from "./CustomParagraph";
 import { Separator } from "../separator";
@@ -50,32 +50,43 @@ const activeNavLinkClassName = (
 
 interface NavigationComponentsProps {
   theme?: "light" | "dark" | "system";
+  loggedIn?: boolean;
   children?: JSX.Element | JSX.Element[] | string;
 }
 
-export function NavigationComponents({ children, theme }: NavigationComponentsProps) {
+export function NavigationComponents({ children, theme, loggedIn }: NavigationComponentsProps) {
+
   //comportamiento del tamaño de la pantalla
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   //Control de estado y comportamiento del menúbar, del drawer
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  // const [isActiveLinkMobile, setIsActiveLinkMobile] = useState<boolean>(false);
+  
   const handleOpenChange = (newOpenState: boolean) => {
     setIsOpen(newOpenState);
   };
-  const location = useLocation();
-  const pathName = location.pathname;
+
+  const pathName = useLocation().pathname;
+  const currentPath = navLinks.find((route) => {
+    const routeParts = route.href.split('/');
+    if (routeParts.length > 2) {
+      return route.href.split('/')[1] === pathName.split('/')[1];
+    }
+    return route.href === pathName;
+  });
 
   //Comportamiento de scroll para estilizado del navbar
   const { y } = useWindowScroll();
 
   const defaultNavbarClassName =
-    "sticky top-0 z-[60] flex justify-between px-2 sm:p-4 py-2 transition-colors duration-500 ease-in";
+    "fixed top-0 z-[60] flex justify-between px-2 sm:p-4 py-2 transition-colors duration-500 ease-in bg-zinc-50/50 backdrop-blur-md dark:bg-zinc-950/50";
 
   let navbarClassName: string;
   if (y > 0) {
     navbarClassName = cn(
       defaultNavbarClassName,
-      "bg-zinc-50/50 backdrop-blur-md dark:bg-zinc-950/80 border-b"
+      "bg-zinc-50/90 backdrop-blur-md dark:bg-zinc-950/90 border-b"
     );
   } else if (isOpen) {
     navbarClassName = cn(
@@ -90,7 +101,8 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
   const defaultLinkClassName =
     "flex gap-x-3 text-lg text-zinc-950 dark:text-customPrimary-50";
 
-  const isLoggedIn = true;
+  //Estado de autenticación
+  const isLoggedIn = loggedIn || false;
   let user: User | null = null;
   if (isLoggedIn) {
     user = {
@@ -102,13 +114,6 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
       updatedAt: new Date(),
     };
   }
-
-  //   // Escucha los cambios en el tema
-  //   useEffect(() => {
-  //     setThemeColorState(
-  //       theme === 'dark' ? '#fcf64d' : '#0b0b09'
-  //     );
-  //   }, [theme]);
 
   //Switch dependiente del tamaño de pantalla
   if (isDesktop) {
@@ -140,14 +145,16 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
 
     return (
       <nav className="flex justify-center">
-        <div className={cn(navbarClassName, 'max-w-screen-2xl w-full')}>
-          <Logo></Logo>
-          <NavigationMenu className="bg-transparent">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink>
+        <div className={cn(navbarClassName, "w-full justify-center")}>
+          <div className="flex justify-between max-w-screen-2xl w-full px-10">
+            <Link to={'/'}>
+              <Logo theme={theme}></Logo>
+            </Link>
+            <NavigationMenu className="bg-transparent">
+              <NavigationMenuList>
+                <NavigationMenuItem>
                   <NavLink
-                    to='/'
+                    to="/"
                     className={({ isActive, isPending }) =>
                       cn(className({ isActive, isPending }), "justify-start")
                     }
@@ -155,21 +162,22 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                     <Home></Home>
                     <span>Inicio</span>
                   </NavLink>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              {isLoggedIn && (
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger
-                    className={desktopNavigationTriggerClassName}
-                  >
-                    <Bird></Bird>
-                    <span>Servicios</span>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className={desktopNavigationContentClassname}>
-                    {desktopLinks.servicesLinks.map((link) => {
-                      return (
-                        <NavigationMenuLink key={link.pathName}>
+                </NavigationMenuItem>
+                {isLoggedIn && (
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger
+                      className={desktopNavigationTriggerClassName}
+                    >
+                      <Bird></Bird>
+                      <span>Servicios</span>
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent
+                      className={desktopNavigationContentClassname}
+                    >
+                      {desktopLinks.servicesLinks.map((link) => {
+                        return (
                           <NavLink
+                            key={link.pathName}
                             to={link.href}
                             className={({ isActive, isPending }) =>
                               cn(
@@ -181,15 +189,13 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                             {link.icon()}
                             <span>{link.pathName}</span>
                           </NavLink>
-                        </NavigationMenuLink>
-                      );
-                    })}
-                    <NavigationMenuLink></NavigationMenuLink>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              )}
-              {isLoggedIn && (
-                <NavigationMenuItem>
+                        );
+                      })}
+                      <NavigationMenuLink></NavigationMenuLink>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                )}
+                {isLoggedIn && (
                   <NavigationMenuItem>
                     <NavigationMenuTrigger
                       className={desktopNavigationTriggerClassName}
@@ -197,83 +203,87 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                       <CircleUserRound></CircleUserRound>
                       <span>Sesión</span>
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className={desktopNavigationContentClassname}>
+                    <NavigationMenuContent
+                      className={desktopNavigationContentClassname}
+                    >
                       {desktopLinks.accountLinks.loggedInLinks.map((link) => {
                         return (
-                          <NavigationMenuLink key={link.pathName}>
-                            <NavLink
-                              to={link.href}
-                              className={({ isActive, isPending }) =>
-                                cn(
-                                  className({ isActive, isPending }),
-                                  "justify-start"
-                                )
-                              }
-                            >
-                              {link.icon()}
-                              <span>{link.pathName}</span>
-                            </NavLink>
-                          </NavigationMenuLink>
+                          <NavLink
+                            key={link.pathName}
+                            to={link.href}
+                            className={({ isActive, isPending }) =>
+                              cn(
+                                className({ isActive, isPending }),
+                                "justify-start"
+                              )
+                            }
+                          >
+                            {link.icon()}
+                            <span>{link.pathName}</span>
+                          </NavLink>
                         );
                       })}
                     </NavigationMenuContent>
                   </NavigationMenuItem>
-                </NavigationMenuItem>
-              )}
-              {!isLoggedIn && (
-                <>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink>
+                )}
+                {!isLoggedIn && (
+                  <>
+                    <NavigationMenuItem>
                       <NavLink
                         to={desktopLinks.accountLinks.LogInLink.href}
                         className={({ isActive, isPending }) =>
-                          cn(className({ isActive, isPending }), "justify-start")
+                          cn(
+                            className({ isActive, isPending }),
+                            "justify-start"
+                          )
                         }
                       >
                         <LogIn></LogIn>
                         <span>Iniciar sesión</span>
                       </NavLink>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                </>
-              )}
-                              <NavigationMenuItem>
-                    <NavigationMenuLink>
-                      <NavLink
-                        to={desktopLinks.accountLinks.pricing.href}
-                        className={({ isActive, isPending }) =>
-                          cn(className({ isActive, isPending }), "justify-start")
-                        }
-                      >
-                        <Handshake></Handshake>
-                        <span>Precios</span>
-                      </NavLink>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    {children}
-                  </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+                    </NavigationMenuItem>
+                  </>
+                )}
+                <NavigationMenuItem>
+                  <NavLink
+                    to={desktopLinks.accountLinks.pricing.href}
+                    className={({ isActive, isPending }) =>
+                      cn(className({ isActive, isPending }), "justify-start")
+                    }
+                  >
+                    <Handshake></Handshake>
+                    <span>Precios</span>
+                  </NavLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>{children}</NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
         </div>
       </nav>
     );
   }
 
   return (
-    <nav className={navbarClassName}>
-      <Logo theme={theme}></Logo>
+    <nav className={cn(navbarClassName, 'w-full')}>
+      <Link to={'/'}>
+        <Logo theme={theme}></Logo>
+      </Link>
       <Drawer direction="left" onOpenChange={handleOpenChange}>
         <DrawerTrigger>
           <Hamburger
-            color={theme === "dark" ? "#2462ff" : "#002fff"}
+            color={theme === "dark" ? "#5993FF" : "#002fff"}
             direction="left"
             rounded
             size={28}
             toggled={isOpen}
           />
         </DrawerTrigger>
-        <DrawerContent className="pl-5 sm:py-4 min-h-fit">
+        
+        <DrawerContent className="pl-5 sm:py-4">
+          <DrawerHeader className="hidden">
+            <DrawerTitle></DrawerTitle>
+          </DrawerHeader>
           <ScrollArea className="h-full min-h-fit overflow-auto">
             <section className="pt-4 pr-4 flex justify-between items-start">
               <div className="flex gap-2">
@@ -308,14 +318,20 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
               <ul className="flex flex-col gap-y-3">
                 {navLinks.map((route) => {
                   const Icon = route.icon;
-                  const isActive = pathName.startsWith(route.href);
-                  const activeClassName =
-                    "text-customPrimary-600 dark:text-customPrimary-400";
+                  // const isActive = pathName.startsWith(route.href);
+                  // const activeClassName =
+                  //   "text-customPrimary-600 dark:text-customPrimary-400";
                   //const defultClassName =
                   // ('flex gap-x-3 text-lg text-customSecondary-950 dark:text-customPrimary-50');
-                  const className: string = isActive
-                    ? cn(defaultLinkClassName, activeClassName)
-                    : defaultLinkClassName;
+                  // const className: string = isActive
+                  //   ? cn(defaultLinkClassName, activeClassName)
+                  //   : defaultLinkClassName;
+                  
+                  const defaultClassNavLink = `flex gap-2 text-current dark:text-zinc-50 text-zinc-800 `;
+                  
+                  const activeLinkMobile = 'flex gap-2 dark:text-customPrimary-300 text-customPrimary-700'
+                  //const className = ({isActive}:{isActive:boolean})=>isActive?cn(defaultClassNavLink,activeLinkMobile):defaultClassNavLink
+
                   if (route.authentification && !isLoggedIn) {
                     return null;
                   }
@@ -325,14 +341,14 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
                       className="transition duration-100 ease-in transform hover:translate-x-2"
                     >
                       <DrawerClose asChild>
-                        <Link to={route.href}>
-                          <Button variant={"link"} className={className}>
-                            <Icon />
-                            <span className="text-customSecondary-950 dark:text-customPrimary-50">
-                              {route.pathName}
-                            </span>
-                          </Button>
-                        </Link>
+                        <NavLink to={route.href} >
+                            <Button variant={'link'} className={(route.href == currentPath?.href) ? activeLinkMobile : defaultClassNavLink}>
+                              <Icon />
+                              <span className="text-customSecondary-950 dark:text-customPrimary-50">
+                                {route.pathName}
+                              </span>
+                            </Button>
+                        </NavLink>
                       </DrawerClose>
                     </li>
                   );

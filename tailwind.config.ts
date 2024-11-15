@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 export default {
   darkMode: ["class"],
@@ -104,15 +105,6 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      // Adding custom utilities for mix-blend-mode
-      mixBlendMode: {
-        multiply: "multiply",
-        screen: "screen",
-        overlay: "overlay",
-        darken: "darken",
-        lighten: "lighten",
-        // Add other blend modes as needed
-      },
       backgroundImage:({theme}) => ({
         'gradient-primary-br': `linear-gradient(to bottom right, ${theme(
           'colors.customPrimary.300'
@@ -121,15 +113,21 @@ export default {
           'colors.customPrimary.400'
         )} 0%,${theme('colors.customPrimary.600')} 100%)`,
         'gradient-primary-bl': `linear-gradient(to bottom left, ${theme(
-          'colors.customPrimary.300'
+          'colors.customPrimary.600'
         )} 0%,${theme('colors.customPrimary.500')} 100%)`,
         'gradient-primary-tl': `linear-gradient(to top left, ${theme(
           'colors.customPrimary.300'
         )} 0%,${theme('colors.customPrimary.500')} 100%)`,
-        'gradient-primary-tb': `linear-gradient(to bottom, ${theme(
+        'gradient-primary-tb': `linear-gradiZent(to bottom, ${theme(
           'colors.customPrimary.400'
         )} 0%,${theme('colors.customPrimary.600')} 100%)`,
       }),
+      textShadow:{
+        sm: '0 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+        md: '0 4px 48px var(--tw-shadow-color)',
+        lg: '0 8px 16px var(--tw-shadow-color)',
+      }
     },
   },
   safelist: [
@@ -150,5 +148,16 @@ export default {
   plugins: [
     require("tailwindcss-animate"),
     require("tailwindcss-animated"),
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      )
+    }),
+    
   ],
 } satisfies Config;

@@ -48,7 +48,7 @@ body {
     --popover: 240 10% 3.9%; /* hsl(240, 10%, 3.9%) */
     --popover-foreground: 0 0% 98%; /* hsl(0, 0%, 98%) */
     /* --primary: 0 0% 98%; */
-    --primary: 223 100% 57%; /* hsl(223, 100%, 57%) */
+    --primary: 223 100% 57%; /* hsl(219, 100%, 67%) */ /*	hsl(223, 100%, 57%)*/
     --primary-foreground: 240 5.9% 10%; /* hsl(240, 5.9%, 10%) */
     --secondary: 240 3.7% 15.9%; /* hsl(240, 3.7%, 15.9%) */
     --secondary-foreground: 0 0% 98%; /* hsl(0, 0%, 98%) */
@@ -75,5 +75,12 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  .text-shadow-primary {
+    --tw-shadow-color: theme('colors.primary.DEFAULT');
+  }
+  .text-shadow-zinc-50 {
+    --tw-shadow-color: theme('colors.zinc.50');
   }
 }

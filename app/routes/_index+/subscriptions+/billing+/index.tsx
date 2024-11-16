@@ -7,16 +7,16 @@ export default function Billing() {
             {/* Encabezado */}
             <header className="mb-6">
                 <h1 className="text-2xl font-bold">Facturación</h1>
-                <p className="text-gray-600">Revisa tu historial de pagos y administra tu facturación.</p>
+                <p className="text-gray-500">Revisa tu historial de pagos y administra tu facturación.</p>
             </header>
 
             {/* Historial de pagos */}
-            <Card className="mb-6">
+            <Card className="mb-6 bg-zinc-800">
                 <CardHeader>
                     <CardTitle>Historial de Pagos</CardTitle>
                     </CardHeader>
                 <CardContent>
-                <table className="w-full text-left border-collapse">
+                <table className="w-full text-left border-collapse ">
                     <thead>
                     <tr className="border-b">
                         <th className="py-2 px-4">Fecha</th>
@@ -28,7 +28,7 @@ export default function Billing() {
                     </thead>
                     <tbody>
                     {/* Filas de ejemplo */}
-                    <tr className="hover:bg-gray-100">
+                    <tr className="hover:bg-gray-400">
                         <td className="py-2 px-4">15/11/2024</td>
                         <td className="py-2 px-4">S/10.00</td>
                         <td className="py-2 px-4">Tarjeta Visa</td>
@@ -37,7 +37,7 @@ export default function Billing() {
                         <Button variant="outline" size="sm">Descargar</Button>
                         </td>
                     </tr>
-                    <tr className="hover:bg-gray-100">
+                    <tr className="hover:bg-gray-400">
                         <td className="py-2 px-4">15/10/2024</td>
                         <td className="py-2 px-4">S/10.00</td>
                         <td className="py-2 px-4">PayPal</td>
@@ -54,7 +54,7 @@ export default function Billing() {
             {/* Próximo cobro y método de pago */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {/* Próximo cobro */}
-                <Card className="w-full">
+                <Card className="w-full bg-zinc-800">
                     <CardHeader>
                         <CardTitle>Próximo Cobro</CardTitle>
                     </CardHeader>
@@ -69,7 +69,7 @@ export default function Billing() {
                 </Card>
                 
                 {/* Método de pago */}
-                <Card>
+                <Card className="w-full bg-zinc-800">
                 <CardHeader>
                     <CardTitle>Método de Pago</CardTitle>
                 </CardHeader>

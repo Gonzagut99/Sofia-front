@@ -45,7 +45,7 @@ const SubscriptionPage = () => {
                 <li>Soporte prioritario</li>
                 <li>Acceso anticipado a nuevas funcionalidades</li>
                 </ul>
-                <div className="flex gap-4 mt-6">
+                <div className="flex justify-between gap-4 mt-6">
                 <Button variant="outline" size="lg">Renovar</Button>
                 <Button variant="destructive" size="lg">Cancelar</Button>
                 </div>

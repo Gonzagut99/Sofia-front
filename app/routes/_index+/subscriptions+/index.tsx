@@ -26,11 +26,11 @@ const SubscriptionPage = () => {
                 alt={user.name}
                 className="w-10 h-10 rounded-full border-2 border-white"
             />
-            <p className="text-white text-lg font-semibold">¡Hola, {user.name}!</p>
+            <p className=" text-lg font-semibold">¡Hola, {user.name}!</p>
         </div>
 
         {/* Información del plan */}
-        <Card className="bg-zinc-800 text-white mb-6">
+        <Card className="dark:bg-zinc-800 mb-6">
             <CardHeader>
             <CardTitle className="text-2xl font-semibold">Plan: Premium</CardTitle>
             </CardHeader>
@@ -54,7 +54,7 @@ const SubscriptionPage = () => {
         </Card>
 
         {/* Historial de pagos */}
-        <Card className="bg-zinc-800 text-white mb-6">
+        <Card className="dark:bg-zinc-800 mb-6">
             <CardHeader>
             <CardTitle className="text-2xl font-semibold">Historial de Pagos</CardTitle>
             </CardHeader>
@@ -70,7 +70,7 @@ const SubscriptionPage = () => {
                 </thead>
                 <tbody>
                     {paymentHistory.map((payment, index) => (
-                    <tr key={index} className={index % 2 === 0 ? "bg-zinc-700" : "bg-zinc-600"}>
+                    <tr key={index} className={index % 2 === 0 ? "dark:bg-zinc-700 bg-zinc-50" : "dark:bg-zinc-600 bg-slate-100"}>
                         <td className="px-4 py-2">{payment.date}</td>
                         <td className="px-4 py-2">{payment.amount}</td>
                         <td className="px-4 py-2">{payment.status}</td>

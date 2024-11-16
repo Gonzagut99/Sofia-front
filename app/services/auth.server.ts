@@ -1,87 +1,86 @@
+import { getRefreshToken, setAuthCookies, getAuthCookies } from './auth-cookies.server';
 // auth.server.ts
-import axios from "axios";
 import { redirect } from "@remix-run/node";
+import { getUserProfile } from "./user.server";
 
-interface LoginCredentials {
-  username: string;
-  password: string;
+interface AuthenticatorConfig {
+    failureRedirect: string;
+}
+class Authenticator {
+  async isAuthenticated(request: Request, { failureRedirect }: AuthenticatorConfig) {
+    const authCookies = await getAuthCookies(request);
+    if (!authCookies || !authCookies.accessToken || authCookies.accessToken.length==0) {
+      return redirect(failureRedirect);
+    } 
+    if (authCookies) {
+      const user = await getUserProfile(authCookies.accessToken);
+      if(user.status === 401){
+        //TODO: Add refresh token logic
+        return redirect(failureRedirect);
+      }else if (user.id) {
+        return true
+      }
+      else{
+        return redirect(failureRedirect);
+      }
+
+    }
+  }
+
+  async refreshAccessToken(request: Request) {
+    try {
+      const refreshToken = await getRefreshToken(request);
+      
+      if (!refreshToken) {
+        return redirect('/login');
+      }
+  
+      const response = await fetch(`${process.env.API_URL}/auth/refresh`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${refreshToken}`,
+        },
+      });
+  
+      if (!response.ok) {
+        // Si el refresh token expiró, redirigir al login
+        if (response.status === 401) {
+          return redirect('/login');
+        }
+        throw new Error('Error refreshing token');
+      }
+  
+      const { accessToken, refreshToken: newRefreshToken, userId } = await response.json();
+  
+      // Establecer nuevas cookies
+      const headers = await setAuthCookies(accessToken, newRefreshToken, userId);
+  
+      return headers;
+    } catch (error) {
+      console.error('Error refreshing token:', error);
+      return redirect('/login');
+    }
+  }
+
+  async isTokenExpired (token: string): Promise<boolean> {
+    try {
+      // Decodificar el token (parte payload)
+      const payload = JSON.parse(
+        Buffer.from(token.split('.')[1], 'base64').toString()
+      );
+      
+      // Obtener tiempo de expiración y agregar margen de seguridad (ej: 1 minuto)
+      const expirationTime = payload.exp * 1000; // Convertir a milisegundos
+      const currentTime = Date.now();
+      const timeUntilExpiration = expirationTime - currentTime;
+      
+      // Retornar true si expira en menos de 1 minuto
+      return timeUntilExpiration <= 60 * 1000;
+    } catch {
+      return true; // Si hay error al decodificar, asumir expirado
+    }
+  }
 }
 
-// interface User {
-//     id: number;
-//     name: string;
-//     email: string;
-//     password: string;
-//     createdAt: Date;
-//     updatedAt: Date;
-//   }
-
-const API_URL = "https://tu-backend.com/api/auth";
-
-// Crear una instancia de axios
-const api = axios.create({
-  baseURL: API_URL,
-  withCredentials: true, // Para enviar cookies con las solicitudes
-});
-
-export const login = async (credentials: LoginCredentials): Promise<Response> => {
-  try {
-    await axios.post(`${API_URL}/login`, credentials);
-    // Suponiendo que el backend establece una cookie httpOnly con el token
-    // No es necesario manejar el token en el frontend
-    // const { token } = response.data;
-    // localStorage.setItem('authToken', token);
-    // return token;
-    return redirect("/services");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw new Error(error.response?.data?.message || "Error al iniciar sesión");
-  }
-};
-
-export const logout = async (): Promise<void> => {
-  try {
-    await api.post("/logout");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw new Error(error.response?.data?.message || "Error al cerrar sesión");
-  }
-  //localStorage.removeItem('authToken');
-};
-
-export const register = async (
-  userData: Omit<User, "id"> & { password: string }
-): Promise<User> => {
-  // const { name, email, password } = userData;
-  try {
-    const response = await api.post("/register", userData);
-    return response.data.user;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw new Error(error.response?.data?.message || "Error al registrarse");
-  }
-};
-
-export const getCurrentUser = async (): Promise<User | null> => {
-  //   const token = localStorage.getItem('authToken');
-  //   if (!token) return null;
-
-  //   try {
-  //     const response = await axios.get(`${API_URL}/me`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     return response.data.user;
-  //   } catch (error) {
-  //     logout();
-  //     return null;
-  //   }
-  try {
-    const response = await api.get("/me");
-    return response.data.user;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return null;
-  }
-};
+export const authenticator = new Authenticator();

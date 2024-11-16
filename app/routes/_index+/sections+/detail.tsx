@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { GraduationCap, ChartColumnBig, FileUser, FileStack } from "lucide-react"
+import { GraduationCap, ChartColumnBig, FileUser, FileStack, Bot } from "lucide-react"
 import { Link } from "@remix-run/react";
 import {
     Card,
@@ -95,6 +95,22 @@ const index = () => {
                                 <div className="flex flex-col justify-start gap-2 ">
                                     <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg ">Reportes estadísticos de la sección</h2>
                                     <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Clasificación VAK, promedios, notas y sugerencia de mejora</p>
+                                </div>
+                            </CardTitle>
+                        </CardHeader>
+                    </Card>
+                </Link>
+
+                <Link to="/sections/predictions" className="w-full md:w-2/4">
+                    <Card className="h-full w-full  dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-zinc-50 hover:bg-zinc-100 cursor-pointer">
+                        <CardHeader>
+                            <CardTitle className="flex flex-row gap-4">
+                                <figure className="flex flex-col justify-start">
+                                    <Bot />
+                                </figure>
+                                <div className="flex flex-col justify-start gap-2 ">
+                                    <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg ">Predicción de notas</h2>
+                                    <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Gracias a nuestro modelo de Machine Learning puedes saber cuantas probabilidades tiene tu alumno para aprovar cierta materia</p>
                                 </div>
                             </CardTitle>
                         </CardHeader>

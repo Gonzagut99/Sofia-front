@@ -81,7 +81,7 @@ import { Home, BotMessageSquare, GraduationCap, CalendarCheck, CircleUser, Credi
         authentification: true
       },
       {
-        href: '/logout',
+        href: '/resources/logout-modal',
         pathName: 'Cerrar sesión',
         icon: () => <LogOut/>,
         authentification: true

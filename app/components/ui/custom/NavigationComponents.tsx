@@ -16,6 +16,7 @@ import { Separator } from "../separator";
 
 import { useWindowScroll } from "react-use";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../navigation-menu";
+import { UserData } from "~/types/user";
 
 const activeNavLinkClassName = (
   defaultTwClass: string,
@@ -52,9 +53,10 @@ interface NavigationComponentsProps {
   theme?: "light" | "dark" | "system";
   loggedIn?: boolean;
   children?: JSX.Element | JSX.Element[] | string;
+  userProfile?: UserData;
 }
 
-export function NavigationComponents({ children, theme, loggedIn }: NavigationComponentsProps) {
+export function NavigationComponents({ children, theme, loggedIn, userProfile }: NavigationComponentsProps) {
 
   //comportamiento del tamaño de la pantalla
   const isDesktop = useMediaQuery("(min-width: 1024px)");
@@ -103,17 +105,22 @@ export function NavigationComponents({ children, theme, loggedIn }: NavigationCo
 
   //Estado de autenticación
   const isLoggedIn = loggedIn || false;
-  let user: User | null = null;
-  if (isLoggedIn) {
-    user = {
-      id: 1,
-      name: "Gonzalo Gutiérrez",
-      email: "74060336@certus.edu.pe",
-      password: "123456",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+  const user = userProfile || null;
+
+  const isAuthenticated = () => {
+    return isLoggedIn && user;
+    //return isLoggedIn;
   }
+  // if (isLoggedIn) {
+  //   user = {
+  //     id: 1,
+  //     name: "Gonzalo Gutiérrez",
+  //     email: "74060336@certus.edu.pe",
+  //     password: "123456",
+  //     createdAt: new Date(),
+  //     updatedAt: new Date(),
+  //   };
+  // }
 
   //Switch dependiente del tamaño de pantalla
   if (isDesktop) {
@@ -163,7 +170,7 @@ export function NavigationComponents({ children, theme, loggedIn }: NavigationCo
                     <span>Inicio</span>
                   </NavLink>
                 </NavigationMenuItem>
-                {isLoggedIn && (
+                {isAuthenticated() && (
                   <NavigationMenuItem>
                     <NavigationMenuTrigger
                       className={desktopNavigationTriggerClassName}
@@ -195,7 +202,7 @@ export function NavigationComponents({ children, theme, loggedIn }: NavigationCo
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                 )}
-                {isLoggedIn && (
+                {isAuthenticated() && (
                   <NavigationMenuItem>
                     <NavigationMenuTrigger
                       className={desktopNavigationTriggerClassName}
@@ -226,7 +233,7 @@ export function NavigationComponents({ children, theme, loggedIn }: NavigationCo
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                 )}
-                {!isLoggedIn && (
+                {!isAuthenticated() && (
                   <>
                     <NavigationMenuItem>
                       <NavLink
@@ -285,35 +292,41 @@ export function NavigationComponents({ children, theme, loggedIn }: NavigationCo
             <DrawerTitle></DrawerTitle>
           </DrawerHeader>
           <ScrollArea className="h-full min-h-fit overflow-auto">
-            <section className="pt-4 pr-4 flex justify-between items-start">
-              <div className="flex gap-2">
-                <DrawerClose asChild>
-                  <Link to={"/profile"}>
-                    <Avatar className="rounded-lg bg-gradient-to-b from-customSecondary-950/10 to-customSecondary-50/90 dark:from-customSecondary-50/20 dark:to-customSecondary-950/10">
-                      <AvatarImage
-                        src="/assets/AvatarExample.png"
-                        alt="@GonzaloGutiérrez"
-                      />
-                      <AvatarFallback>GG</AvatarFallback>
-                    </Avatar>
-                  </Link>
-                </DrawerClose>
-                <div>
-                  <P className="flex flex-col">
-                    <span>Hola{", "}</span>
-                    <span className={customFontSizes("lg")}>
-                      {user?.name.split(" ")[0]}
-                    </span>
-                  </P>
-                </div>
-              </div>
-              {/* <DrawerClose asChild>
-                <Link to={"/cart"} className="dark:fill-customPrimary-50">
-                  <Bag size={32} />
-                </Link>
-              </DrawerClose> */}
-            </section>
-            <Separator className="my-4"></Separator>
+            {
+              isAuthenticated() && (
+                <>
+                  <section className="pt-4 pr-4 flex justify-between items-start">
+                    <div className="flex gap-2">
+                      <DrawerClose asChild>
+                        <Link to={"/profile"}>
+                          <Avatar className="rounded-lg bg-gradient-to-b from-customSecondary-950/10 to-customSecondary-50/90 dark:from-customSecondary-50/20 dark:to-customSecondary-950/10">
+                            <AvatarImage
+                              src={user?.avatarUrl}
+                              alt={user?.username}
+                            />
+                            <AvatarFallback>{`${user?.name?.charAt(0)?.toUpperCase() ?? ''}${user?.lastname?.charAt(0)?.toUpperCase() ?? ''}`}</AvatarFallback>
+                          </Avatar>
+                        </Link>
+                      </DrawerClose>
+                      <div>
+                        <P className="flex flex-col">
+                          <span>Hola{", "}</span>
+                          <span className={customFontSizes("lg")}>
+                            {`${user?.name} ${user?.lastname}`}
+                          </span>
+                        </P>
+                      </div>
+                    </div>
+                    {/* <DrawerClose asChild>
+                      <Link to={"/cart"} className="dark:fill-customPrimary-50">
+                        <Bag size={32} />
+                      </Link>
+                    </DrawerClose> */}
+                  </section>
+                  <Separator className="my-4"></Separator>
+                </>
+              )
+            }
             <section>
               <ul className="flex flex-col gap-y-3">
                 {navLinks.map((route) => {
@@ -332,7 +345,7 @@ export function NavigationComponents({ children, theme, loggedIn }: NavigationCo
                   const activeLinkMobile = 'flex gap-2 dark:text-customPrimary-300 text-customPrimary-700'
                   //const className = ({isActive}:{isActive:boolean})=>isActive?cn(defaultClassNavLink,activeLinkMobile):defaultClassNavLink
 
-                  if (route.authentification && !isLoggedIn) {
+                  if (route.authentification && !isAuthenticated()) {
                     return null;
                   }
                   return (
@@ -367,7 +380,7 @@ export function NavigationComponents({ children, theme, loggedIn }: NavigationCo
             </section>
             <Separator className="my-4"></Separator>
             <section>
-              {!isLoggedIn ? (
+              {!isAuthenticated() ? (
                 <ul className="flex flex-col gap-y-3">
                   <li>
                     <DrawerClose asChild>
@@ -400,7 +413,7 @@ export function NavigationComponents({ children, theme, loggedIn }: NavigationCo
                 <ul className="flex flex-col gap-y-3">
                   <li>
                     <DrawerClose asChild>
-                      <Link to="/logout">
+                      <Link to="/resources/logout-modal">
                         <Button
                           variant={"link"}
                           className={defaultLinkClassName}

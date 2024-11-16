@@ -44,8 +44,8 @@ function index() {
                   <GraduationCap />
                 </figure>
                 <div className="flex flex-col justify-start gap-2 ">
-                  <h2 className="text-gray-800 font-semibold text-base md:text-xl">Sección: BTE-01</h2>
-                  <p className="text-gray-700 font-light text-base md:text-lg">Curso: Proyecto Integrador</p>
+                  <h2 className="text-gray-800 dark:text-zinc-100 font-semibold text-base md:text-xl">Sección: BTE-01</h2>
+                  <p className="text-gray-700 dark:text-zinc-50 font-light text-base md:text-lg">Curso: Proyecto Integrador</p>
                 </div>
               </CardTitle>
             </CardHeader>
@@ -60,8 +60,8 @@ function index() {
                   <GraduationCap />
                 </figure>
                 <div className="flex flex-col justify-start gap-2 ">
-                  <h2 className="text-gray-800 font-semibold text-base md:text-xl">Sección: KBJ-02</h2>
-                  <p className="text-gray-700 font-light text-base md:text-lg">Curso: Base de datos</p>
+                  <h2 className="text-gray-800 dark:text-zinc-100 font-semibold text-base md:text-xl">Sección: KBJ-02</h2>
+                  <p className="text-gray-700 dark:text-zinc-50 font-light text-base md:text-lg">Curso: Base de datos</p>
                 </div>
               </CardTitle>
             </CardHeader>
@@ -76,8 +76,8 @@ function index() {
                   <GraduationCap />
                 </figure>
                 <div className="flex flex-col justify-start gap-2 ">
-                  <h2 className="text-gray-800 font-semibold text-base md:text-xl">Sección: JSA-03</h2>
-                  <p className="text-gray-700 font-light text-base md:text-lg">Curso: Inteligencia Artificial</p>
+                  <h2 className="text-gray-800  dark:text-zinc-100 font-semibold text-base md:text-xl">Sección: JSA-03</h2>
+                  <p className="text-gray-700 dark:text-zinc-50  font-light text-base md:text-lg">Curso: Inteligencia Artificial</p>
                 </div>
               </CardTitle>
             </CardHeader>

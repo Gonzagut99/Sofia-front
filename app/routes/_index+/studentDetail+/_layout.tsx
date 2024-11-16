@@ -4,7 +4,7 @@ import { BackNavigator } from "~/routes/resources+/back-navigator";
 
 function _layout() {
   return (
-    <PageContainer className="flex flex-col">
+    <PageContainer className="flex flex-col gap-10">
       <BackNavigator></BackNavigator>
       <Outlet></Outlet>
     </PageContainer>

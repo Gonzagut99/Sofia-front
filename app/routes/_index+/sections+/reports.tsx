@@ -4,19 +4,13 @@ import { Link } from "@remix-run/react";
 import TypingAnimation from "~/components/ui/typing-animation";
 import {
     Card,
-    CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import { Button } from "~/components/ui/button"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     return null;
 };
-
-import React from 'react'
-
 const index = () => {
     return (
         <>

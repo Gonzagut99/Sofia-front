@@ -3,8 +3,6 @@ import { GraduationCap, ChartColumnBig, FileUser, FileStack } from "lucide-react
 import { Link } from "@remix-run/react";
 import {
     Card,
-    CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
@@ -12,9 +10,6 @@ import {
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     return null;
 };
-
-import React from 'react'
-
 const index = () => {
     return (
         <>

@@ -3,7 +3,7 @@ import { Form, redirect, useLoaderData, useNavigation, useSubmit } from "@remix-
 import { ActionFunctionArgs, json } from "@remix-run/node"
 import { Button } from "~/components/ui/button"
 import { Send, PlusCircle } from "lucide-react"
-import { Textarea } from "components/ui/textarea"
+import { Textarea } from "~/components/ui/textarea"
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getValidatedFormData, RemixFormProvider, useRemixForm } from 'remix-hook-form'
@@ -155,7 +155,8 @@ export function AIPromptInput() {
                 <FormMessage></FormMessage>
               </FormItem>
             )}
-          ></FormField>
+          >
+          </FormField>
           <FormField
             name="questionCount"
             control={control}

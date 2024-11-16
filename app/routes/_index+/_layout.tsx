@@ -39,6 +39,7 @@ export default function Index() {
         />
       )}
       <NavigationComponents
+        loggedIn={true}
         theme={requestInfo.userPrefs.theme || theme || "light"}
       >
         <ThemeSwitch userPreference={requestInfo.userPrefs.theme}></ThemeSwitch>

@@ -50,10 +50,11 @@ const activeNavLinkClassName = (
 
 interface NavigationComponentsProps {
   theme?: "light" | "dark" | "system";
+  loggedIn?: boolean;
   children?: JSX.Element | JSX.Element[] | string;
 }
 
-export function NavigationComponents({ children, theme }: NavigationComponentsProps) {
+export function NavigationComponents({ children, theme, loggedIn }: NavigationComponentsProps) {
 
   //comportamiento del tamaño de la pantalla
   const isDesktop = useMediaQuery("(min-width: 1024px)");
@@ -100,7 +101,8 @@ export function NavigationComponents({ children, theme }: NavigationComponentsPr
   const defaultLinkClassName =
     "flex gap-x-3 text-lg text-zinc-950 dark:text-customPrimary-50";
 
-  const isLoggedIn = true;
+  //Estado de autenticación
+  const isLoggedIn = loggedIn || false;
   let user: User | null = null;
   if (isLoggedIn) {
     user = {

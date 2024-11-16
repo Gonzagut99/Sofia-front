@@ -76,7 +76,7 @@ import { Home, BotMessageSquare, GraduationCap, CalendarCheck, CircleUser, Credi
         authentification: true
       },
       {
-        href: '/subscription',
+        href: '/subscriptions',
         pathName: 'Mi suscripción',
         icon: () => <CreditCard/>,
         authentification: true

@@ -120,8 +120,8 @@ export default function PromptOutput() {
   return (
     <>
     <section className="relative max-h-[480px] min-h-[350px] h-[400px]">
-      <div className="absolute z-10 inset-0 h-10 bg-gradient-to-b from-zinc-900 to-transparent "></div>
-      <div className="overflow- h-full max-h-[480px] flex flex-col gap-12 justify-center items-center">
+      <div className="absolute z-10 inset-0 h-10 bg-gradient-to-b dark:from-zinc-900 dark:to-transparent from-zinc-100 to-transparent"></div>
+      <div className="overflow-auto h-full max-h-[480px] flex flex-col gap-12 justify-center items-center">
         {
           actionData?.aiDataBlocks.map((block, index) => (
             <div key={index} className="flex flex-col gap-3 max-w-screen-md">

@@ -20,8 +20,8 @@ const index = () => {
                 </figure>
 
                 <div className="flex flex-col justify-start gap-2">
-                    <h2 className="text-gray-800 font-semibold text-base md:text-2xl">Sección: BTE-01</h2>
-                    <p className="text-gray-700 font-light text-sm md:text-base">Curso: Proyecto Integrador</p>
+                    <h2 className="text-gray-800 dark:text-zinc-100 font-semibold text-base md:text-2xl">Sección: BTE-01</h2>
+                    <p className="text-gray-700 dark:text-zinc-50 font-light text-sm md:text-base">Curso: Proyecto Integrador</p>
                 </div>
 
             </section>
@@ -61,15 +61,15 @@ const index = () => {
                                     <FileStack />
                                 </figure>
                                 <div className="flex flex-col justify-start gap-2 ">
-                                    <h2 className="text-gray-800 text-sm font-bold md:text-lg">Gestión y control de evaluaciones y asistencia por sesión de aprendizaje</h2>
-                                    <p className="text-gray-700 text-xs font-light md:text-base">Formulario de calificación de tareas, actividades, exámenes, marcado de asistencia y participación.</p>
+                                    <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg">Gestión y control de evaluaciones y asistencia por sesión de aprendizaje</h2>
+                                    <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Formulario de calificación de tareas, actividades, exámenes, marcado de asistencia y participación.</p>
                                 </div>
                             </CardTitle>
                         </CardHeader>
                     </Card>
                 </Link>
 
-                <Link to="/none" className="w-full md:w-2/4">
+                <Link to="/sectionStudents" className="w-full md:w-2/4">
                     <Card className="h-full w-full  dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-zinc-50 hover:bg-zinc-100 cursor-pointer">
                         <CardHeader>
                             <CardTitle className="flex flex-row gap-4">
@@ -77,15 +77,15 @@ const index = () => {
                                     <FileUser />
                                 </figure>
                                 <div className="flex flex-col justify-start gap-2 ">
-                                    <h2 className="text-gray-800 text-sm font-bold md:text-lg ">Lista de Estudiantes</h2>
-                                    <p className="text-gray-700 text-xs font-light md:text-base">Historial de aprendizaje y predicción de desempeño</p>
+                                    <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg ">Lista de Estudiantes</h2>
+                                    <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Historial de aprendizaje y predicción de desempeño</p>
                                 </div>
                             </CardTitle>
                         </CardHeader>
                     </Card>
                 </Link>
 
-                <Link to="/none" className="w-full md:w-2/4">
+                <Link to="/sectionReports" className="w-full md:w-2/4">
                     <Card className="h-full w-full  dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-zinc-50 hover:bg-zinc-100 cursor-pointer">
                         <CardHeader>
                             <CardTitle className="flex flex-row gap-4">
@@ -93,8 +93,8 @@ const index = () => {
                                     <ChartColumnBig />
                                 </figure>
                                 <div className="flex flex-col justify-start gap-2 ">
-                                    <h2 className="text-gray-800 text-sm font-bold md:text-lg ">Reportes estadísticos de la sección</h2>
-                                    <p className="text-gray-700 text-xs font-light md:text-base">Clasificación VAK, promedios, notas y sugerencia de mejora</p>
+                                    <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg ">Reportes estadísticos de la sección</h2>
+                                    <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Clasificación VAK, promedios, notas y sugerencia de mejora</p>
                                 </div>
                             </CardTitle>
                         </CardHeader>
@@ -103,7 +103,7 @@ const index = () => {
 
             </section>
 
-            <h1 className="text-gray-800 text-center text-lg font-bold md:text-xl ">¿Nuevo Mes?</h1>
+            <h1 className="text-gray-800 dark:text-zinc-100 text-center text-lg font-bold md:text-xl ">¿Nuevo Mes?</h1>
 
             <section className="flex flex-col
             items-center justify-center gap-4">
@@ -116,8 +116,8 @@ const index = () => {
                                     <FileStack />
                                 </figure>
                                 <div className="flex flex-col justify-start gap-2 ">
-                                    <h2 className="text-gray-800 text-sm font-bold md:text-lg ">Gestión y control de evaluaciones y asistencia por sesión de aprendizaje</h2>
-                                    <p className="text-gray-700 text-xs font-light md:text-base">Formulario de calificación de tareas, actividades, exámenes, marcado de asistencia y participación.</p>
+                                    <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg ">Gestión y control de evaluaciones y asistencia por sesión de aprendizaje</h2>
+                                    <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Formulario de calificación de tareas, actividades, exámenes, marcado de asistencia y participación.</p>
                                 </div>
                             </CardTitle>
                         </CardHeader>

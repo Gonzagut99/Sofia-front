@@ -27,9 +27,9 @@ const index = () => {
                 </figure>
 
                 <div className="flex flex-col justify-start gap-2">
-                    <h2 className="text-gray-800 font-semibold text-base md:text-2xl">Reportes estadísticos generales</h2>
-                    <p className="text-gray-700 font-light text-sm md:text-base">Sección: BTE-01</p>
-                    <p className="text-gray-700 font-light text-sm md:text-base">Curso: Proyecto Integrador</p>
+                    <h2 className="text-gray-800 dark:text-zinc-100 font-semibold text-base md:text-2xl">Reportes estadísticos generales</h2>
+                    <p className="text-gray-700 dark:text-zinc-50 font-light text-sm md:text-base">Sección: BTE-01</p>
+                    <p className="text-gray-700 dark:text-zinc-50 font-light text-sm md:text-base">Curso: Proyecto Integrador</p>
                 </div>
 
             </section>
@@ -94,8 +94,8 @@ const index = () => {
                                     <ChartColumnBig />
                                 </figure>
                                 <div className="flex flex-col justify-start gap-2 ">
-                                    <h2 className="text-gray-800 text-sm font-bold md:text-lg">Clasificación de estudiantes VAK</h2>
-                                    <p className="text-gray-700 text-xs font-light md:text-base">Grafico Pie</p>
+                                    <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg">Clasificación de estudiantes VAK</h2>
+                                    <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Grafico Pie</p>
                                 </div>
                             </CardTitle>
                         </CardHeader>
@@ -110,8 +110,8 @@ const index = () => {
                                     <ChartColumnBig />
                                 </figure>
                                 <div className="flex flex-col justify-start gap-2 ">
-                                    <h2 className="text-gray-800 text-sm font-bold md:text-lg ">Notas a través de los meses</h2>
-                                    <p className="text-gray-700 text-xs font-light md:text-base">Histograma</p>
+                                    <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg ">Notas a través de los meses</h2>
+                                    <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Histograma</p>
                                 </div>
                             </CardTitle>
                         </CardHeader>
@@ -126,8 +126,8 @@ const index = () => {
                                     <ChartColumnBig />
                                 </figure>
                                 <div className="flex flex-col justify-start gap-2 ">
-                                    <h2 className="text-gray-800 text-sm font-bold md:text-lg ">Distribución de notas</h2>
-                                    <p className="text-gray-700 text-xs font-light md:text-base">Diagrama de dispersión</p>
+                                    <h2 className="text-gray-800 dark:text-zinc-100 text-sm font-bold md:text-lg ">Distribución de notas</h2>
+                                    <p className="text-gray-700 dark:text-zinc-50 text-xs font-light md:text-base">Diagrama de dispersión</p>
                                 </div>
                             </CardTitle>
                         </CardHeader>

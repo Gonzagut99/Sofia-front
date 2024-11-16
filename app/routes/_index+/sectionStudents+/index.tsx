@@ -35,9 +35,9 @@ const index = () => {
                 </figure>
 
                 <div className="flex flex-col justify-start gap-2">
-                    <h2 className="text-gray-800 font-semibold text-base md:text-2xl">Lista de estudiantes</h2>
-                    <p className="text-gray-700 font-light text-sm md:text-base">Sección: BTE-01</p>
-                    <p className="text-gray-700 font-light text-sm md:text-base">Curso: Proyecto Integrador</p>
+                    <h2 className="text-gray-800 dark:text-zinc-100 font-semibold text-base md:text-2xl">Lista de estudiantes</h2>
+                    <p className="text-gray-700 dark:text-zinc-50 font-light text-sm md:text-base">Sección: BTE-01</p>
+                    <p className="text-gray-700 dark:text-zinc-50 font-light text-sm md:text-base">Curso: Proyecto Integrador</p>
                 </div>
 
             </section>
@@ -51,20 +51,20 @@ const index = () => {
                 </figure>
             </section>
 
-            <h1 className="text-gray-800 text-left text-lg font-semibold md:text-xl md:text-center ">Curso: Proyecto Integrador</h1>
+            <h1 className="text-gray-800 dark:text-zinc-100 text-left text-lg font-semibold md:text-xl md:text-center ">Curso: <span className=" font-light">Proyecto Integrador</span></h1>
 
             <div className="m-auto w-full md:w-5/6">
                 <Table className="text-xs md:text-sm rounded-lg bg-white">
                     <TableHeader className="">
                         <TableRow>
-                            <TableHead>Codigo</TableHead>
+                            <TableHead >Codigo</TableHead>
                             <TableHead>Nombres y Apellidos</TableHead>
                             <TableHead>Promedio general</TableHead>
                             <TableHead >Detalle</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow>
+                        <TableRow className="dark:text-gray-400">
                             <TableCell>001</TableCell>
                             <TableCell>Gutiérrez, Gonzalo</TableCell>
                             <TableCell>16.8</TableCell>
@@ -72,7 +72,7 @@ const index = () => {
                         </TableRow>
                     </TableBody>
                     <TableBody>
-                        <TableRow>
+                        <TableRow className="dark:text-gray-400" >
                             <TableCell>002</TableCell>
                             <TableCell>Arevalo, Dayane</TableCell>
                             <TableCell>16.4</TableCell>
@@ -80,7 +80,7 @@ const index = () => {
                         </TableRow>
                     </TableBody>
                     <TableBody>
-                        <TableRow>
+                        <TableRow className="dark:text-gray-400">
                             <TableCell>003</TableCell>
                             <TableCell>Choque, Jean Pierre</TableCell>
                             <TableCell>13.9</TableCell>
@@ -88,7 +88,7 @@ const index = () => {
                         </TableRow>
                     </TableBody>
                     <TableBody>
-                        <TableRow>
+                        <TableRow className="dark:text-gray-400">
                             <TableCell>004</TableCell>
                             <TableCell>Huamán, Melissa</TableCell>
                             <TableCell>18.7</TableCell>
@@ -100,7 +100,7 @@ const index = () => {
 
             <section className=" flex justify-center items-center">
                 <Link to="/none">
-                    <Button className="text-white text-sm font-semibold md:text-base p-6 dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-gray-600 hover:bg-gray-700">Importar excel</Button>
+                    <Button className="text-white text-sm font-semibold md:text-base p-6 dark:bg-gray- dark:hover:bg-zinc-700 bg-zinc-600 hover:bg-zinc-700">Importar excel</Button>
                 </Link>
             </section>
 

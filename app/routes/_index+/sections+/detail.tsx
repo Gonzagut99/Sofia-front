@@ -69,7 +69,7 @@ const index = () => {
                     </Card>
                 </Link>
 
-                <Link to="/sectionStudents" className="w-full md:w-2/4">
+                <Link to="/sections/students" className="w-full md:w-2/4">
                     <Card className="h-full w-full  dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-zinc-50 hover:bg-zinc-100 cursor-pointer">
                         <CardHeader>
                             <CardTitle className="flex flex-row gap-4">
@@ -85,7 +85,7 @@ const index = () => {
                     </Card>
                 </Link>
 
-                <Link to="/sectionReports" className="w-full md:w-2/4">
+                <Link to="/sections/reports" className="w-full md:w-2/4">
                     <Card className="h-full w-full  dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-zinc-50 hover:bg-zinc-100 cursor-pointer">
                         <CardHeader>
                             <CardTitle className="flex flex-row gap-4">

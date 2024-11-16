@@ -5,8 +5,8 @@ import { Button } from "~/components/ui/button";
 
 // Historial de pagos (solo ejemplo de cómo organizarlo)
 const paymentHistory = [
-    { date: "2024-01-01", amount: "$19.99", status: "Pagado" },
-    { date: "2024-02-01", amount: "$19.99", status: "Pagado" },
+    { date: "2024-01-01", amount: "S/. 19.99", status: "Pagado" },
+    { date: "2024-02-01", amount: "S/. 19.99", status: "Pagado" },
     ];
 
 // Datos del usuario (deberían venir de tu lógica de autenticación o estado global)
@@ -36,7 +36,7 @@ const SubscriptionPage = () => {
             </CardHeader>
             <CardContent>
             <div className="space-y-4">
-                <p><strong>Precio:</strong> $19.99/mes</p>
+                <p><strong>Precio:</strong> s/. 19.99/mes</p>
                 <p><strong>Fecha de inicio:</strong> 01/01/2024</p>
                 <p><strong>Fecha de expiración:</strong> 01/02/2024</p>
                 <p><strong>Beneficios:</strong></p>

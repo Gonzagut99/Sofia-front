@@ -68,7 +68,7 @@ const index = () => {
                             <TableCell>001</TableCell>
                             <TableCell>Gutiérrez, Gonzalo</TableCell>
                             <TableCell>16.8</TableCell>
-                            <TableCell className="text-decoration-line: underline text-blue-500"><Link to="/none">Ver detalle</Link></TableCell>
+                            <TableCell className="text-decoration-line: underline text-blue-500"><Link to="/studentDetail">Ver detalle</Link></TableCell>
                         </TableRow>
                     </TableBody>
                     <TableBody>

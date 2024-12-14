@@ -47,11 +47,13 @@ export type User = {
     name?: string;
     lastname?: string;
     username: string;
-    avatarUrl: string;
+    avatarUrl?: string;
     hashedRefreshToken: string;
     createdAt: string;
     updatedAt: string;
 }
+
+export type CreateUserDto = Omit<User, "id" | "createdAt" | "updatedAt" | "hashedRefreshToken">
 
 // export enum Plan {
 //     FREE = "FREE",

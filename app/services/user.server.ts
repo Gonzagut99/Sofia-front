@@ -1,20 +1,19 @@
 import { envs } from '~/config/envs';
 import { BackendError } from './error-handling';
-import { User } from '~/types/user';
-// import { CreateUserDto } from '~/types/user.types';
+import { CreateUserDto, User } from '~/types/user';
 
 const API_URL = envs.backendUrl || 'http://localhost:3001';
 
-// export async function createUser(userData: CreateUserDto) {
-//     const response = await fetch(`${API_URL}/users`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(userData),
-//     });
-//     return response.json();
-// }
+export async function createUser(userData: CreateUserDto) {
+    const response = await fetch(`${API_URL}/users`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
+    return response.json();
+}
 
 export async function getAllUsers() {
     const response = await fetch(`${API_URL}/users`);

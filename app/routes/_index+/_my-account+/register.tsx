@@ -11,12 +11,15 @@ import { Card, CardContent, CardFooter, CardHeader } from "~/components/ui/card"
 import { Separator } from "~/components/ui/separator";
 
 import { login } from "../../../services/loginService.server";
+import { createUser } from "~/services/user.server";
+import { User } from "~/types/user";
 const registerSchema = z.object({
   email: z.string().min(1).email({ message: "Por favor ingresa un correo válido" }),
   password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres" }),
   name: z.string().min(1, { message: "El nombre es requerido" }),
   lastname: z.string().min(1, { message: "El apellido es requerido" }),
   username: z.string().min(3, { message: "El nombre de usuario debe tener al menos 3 caracteres" }),
+  avatarUrl: z.string().optional(),
 });
 
 type FormData = z.infer<typeof registerSchema>;
@@ -31,7 +34,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       return json({ errors, receivedValues }, { status: 400 });
     }
 
-    const responseData = await login(data);
+    const newUser:User = await createUser(data)
+    const responseData = await login({
+      email: newUser.email,
+      password: data.password,
+    });
     const cookieHeaders = responseData?.cookieHeaders;
 
     return redirect("/", { headers: cookieHeaders });
@@ -51,6 +58,7 @@ export default function Register() {
       name: "",
       lastname: "",
       username: "",
+      avatarUrl: "https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj",
     },
   });
 

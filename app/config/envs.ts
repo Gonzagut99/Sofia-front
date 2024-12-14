@@ -17,6 +17,8 @@ interface EnvVars {
     STRIPE_YEARLY_PRICE_ID: string;
     STRIPE_WEBHOOK_SECRET: string;
     STRIPE_CUSTOMER_PORTAL: string;
+    VAK_CLASSIFICATION_MICROSERVICE_URL: string
+    SCORE_PREDICTION_MICROSERVICE_URL: string
 }
 
 const envsSchema = z.object({
@@ -31,6 +33,8 @@ const envsSchema = z.object({
     STRIPE_YEARLY_PRICE_ID: z.string(),
     STRIPE_WEBHOOK_SECRET: z.string(),
     STRIPE_CUSTOMER_PORTAL: z.string().url(),
+    VAK_CLASSIFICATION_MICROSERVICE_URL: z.string().url(),
+    SCORE_PREDICTION_MICROSERVICE_URL: z.string().url(),
 }).passthrough(); // Allows additional environment variables. La función .passthrough() en Zod se utiliza para permitir que las propiedades no definidas en el esquema original pasen a través de la validación sin ser eliminadas.
 
 const parsed = envsSchema.safeParse(process.env);
@@ -52,4 +56,6 @@ export const envs = {
     stripeYearlyPriceId: envVars.STRIPE_YEARLY_PRICE_ID,
     stripeWebhookSecret: envVars.STRIPE_WEBHOOK_SECRET,
     stripeCustomerPortal: envVars.STRIPE_CUSTOMER_PORTAL,
+    vakClassificationMicroserviceUrl: envVars.VAK_CLASSIFICATION_MICROSERVICE_URL,
+    scorePredictionMicroserviceUrl: envVars.SCORE_PREDICTION_MICROSERVICE_URL
 };

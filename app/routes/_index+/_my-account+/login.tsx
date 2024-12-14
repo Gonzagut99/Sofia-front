@@ -1,5 +1,5 @@
 import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
-import { Form, useNavigation } from "@remix-run/react";
+import { Form, useNavigate, useNavigation } from "@remix-run/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -73,6 +73,7 @@ export default function Login() {
 
   const { handleSubmit, control } = form;
   const navigation = useNavigation();
+  const navigate = useNavigate();
 
   return (
     <section className="flex items-center justify-center sm:py-8 py-4">
@@ -161,6 +162,7 @@ export default function Login() {
               variant="link"
               className="font-normal text-sm md:text-base w-fit"
               size="sm"
+              onClick={() => navigate("/register")}
             >
                Regístrate aquí
             </Button>

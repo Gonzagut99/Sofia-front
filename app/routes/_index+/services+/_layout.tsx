@@ -22,6 +22,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       "/subscriptions/subscription_plans"
     )
   }
+
+  return null
 };
 
 

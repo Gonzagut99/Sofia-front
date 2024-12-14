@@ -1,10 +1,11 @@
+//import { authenticator } from "~/services/auth.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useEffect, useState } from "react"
 import { useFetcher, useLoaderData } from "@remix-run/react"
 import { ActionFunctionArgs, json } from "@remix-run/node"
 import { Button } from "~/components/ui/button"
 import { Send } from "lucide-react"
-import { Textarea } from "components/ui/textarea"
+import { Textarea } from "~/components/ui/textarea"
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getValidatedFormData, RemixFormProvider, useRemixForm } from 'remix-hook-form'
@@ -21,6 +22,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 const resolver = zodResolver(schema)
 export const loader = async ({ params }: LoaderFunctionArgs) => {
+  //await authenticator.isAuthenticated(request, { failureRedirect: "/login" });
+
   const chatId = params.chatId;
   if (!chatId) {
     throw new Error("chatId is required");
@@ -117,8 +120,8 @@ export default function PromptOutput() {
   return (
     <>
     <section className="relative max-h-[480px] min-h-[350px] h-[400px]">
-      <div className="absolute z-10 inset-0 h-10 bg-gradient-to-b from-zinc-900 to-transparent "></div>
-      <div className="overflow- h-full max-h-[480px] flex flex-col gap-12 justify-center items-center">
+      <div className="absolute z-10 inset-0 h-10 bg-gradient-to-b dark:from-zinc-900 dark:to-transparent from-zinc-100 to-transparent"></div>
+      <div className="overflow-auto h-full max-h-[480px] flex flex-col gap-12 justify-center items-center">
         {
           actionData?.aiDataBlocks.map((block, index) => (
             <div key={index} className="flex flex-col gap-3 max-w-screen-md">

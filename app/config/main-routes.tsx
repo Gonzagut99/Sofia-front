@@ -37,11 +37,12 @@ import { Home, BotMessageSquare, GraduationCap, CalendarCheck, CircleUser, Credi
       authentification: true
     },
     {
-      href: '/subscription',
+      href: '/subscriptions',
       pathName: 'Mi suscripción',
       icon: () => <CreditCard/>,
       authentification: true
     }
+    
     // { href: "/logout", pathName: "Cerrar sesión", icon: <SignOut/> },
   ];
 
@@ -75,13 +76,14 @@ import { Home, BotMessageSquare, GraduationCap, CalendarCheck, CircleUser, Credi
         authentification: true
       },
       {
-        href: '/subscription',
+        // href: '/subscription',
+        href: '/subscriptions',
         pathName: 'Mi suscripción',
         icon: () => <CreditCard/>,
         authentification: true
       },
       {
-        href: '/logout',
+        href: '/resources/logout-modal',
         pathName: 'Cerrar sesión',
         icon: () => <LogOut/>,
         authentification: true
@@ -94,7 +96,8 @@ import { Home, BotMessageSquare, GraduationCap, CalendarCheck, CircleUser, Credi
       authentification: false
     },
     pricing:{
-      href: '/pricing',
+      href: '/subscriptions/subscription_plans',
+      // href: '/pricing',
       pathName: 'Precios',
       icon: () => <CreditCard/>,
       authentification: false

@@ -44,14 +44,11 @@ export type User = {
     id: string;
     email: string;
     password: string;
-    name: string;
-    lastname: string;
+    name?: string;
+    lastname?: string;
     username: string;
     avatarUrl: string;
     hashedRefreshToken: string;
-    plan: Plan;
-    customerId: string;
-    //subscription: Subscription;
     createdAt: string;
     updatedAt: string;
 }

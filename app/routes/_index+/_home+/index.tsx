@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
+
 import { Link } from "@remix-run/react"
 import { useRef } from "react"
 import { Button } from "~/components/ui/button"

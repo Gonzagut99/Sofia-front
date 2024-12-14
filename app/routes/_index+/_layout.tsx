@@ -6,10 +6,11 @@ import { getHints } from "~/utils/client-hints";
 import { getTheme } from "~/utils/theme.server";
 import HomeBgLight from '~/svgs/HomeBgLight.svg'
 import { Footer } from "~/components/ui/custom/Footer";
-import { getAuthCookies } from "~/services/auth-cookies.server";
-import { getUserProfile } from "~/services/user.server";
+// import { getAuthCookies } from "~/services/auth-cookies.server";
+// import { getUserProfile } from "~/services/user.server";
 import { UserData } from "~/types/user";
 import { BackendError } from "~/services/error-handling";
+import { isAuthenticated } from "~/utils/auth.server";
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,60 +20,37 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  console.log(request)
-  const authCookies = await getAuthCookies(request);
+  console.log(request);
+  const { user, error } = await isAuthenticated(request);
 
   const themeInfo = {
     hints: getHints(request),
     userPrefs: {
-          theme: getTheme(request),
-        },
+      theme: getTheme(request),
+    },
   };
-  
-  if (!authCookies) {
-    return json(
-      { themeInfo, error: "Unauthorized:No cookies" },
-      { status: 401 }
-    );
-  }
-  console.log(authCookies)
 
-  const user = await getUserProfile(authCookies.accessToken);
-  if (!user) {
-    return json(
-      { themeInfo, error: "Unauthorized" },
-      { status: 401 }
-    );
+  if (error) {
+    return json({ themeInfo, error }, { status: 401 });
   }
-  if(user.status === 401){
-    return json(
-      { themeInfo, error: "Unauthorized" },
-      { status: 401 }
-    );
-  }
-  console.log(user)
+  console.log(user);
 
   return json({
-    tehemeInfo: {
-      hints: getHints(request),
-      userPrefs: {
-        theme: getTheme(request),
-      },
-    },
-    user:{
+    themeInfo,
+    user: {
       id: user.id,
       email: user.email,
       name: user.name,
       lastname: user.lastname,
       username: user.username,
-      avatarUrl: user.avatarUrl
-    }
+      avatarUrl: user.avatarUrl,
+    },
   });
 }
 export default function Index() {
   const theme = useTheme();
   const data = useLoaderData<typeof loader>();
-  const themeInfo = 'error' in data ? data.themeInfo : data.tehemeInfo;
+  const themeInfo = 'error' in data ? data.themeInfo : data.themeInfo;
   const user = 'error' in data ? undefined : data.user;
   const unathorizedError = 'error' in data && data.error === "Unauthorized";
   const isLoggedIn = !unathorizedError && !!user;

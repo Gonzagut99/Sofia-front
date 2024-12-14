@@ -1,6 +1,29 @@
-import { Outlet } from "@remix-run/react";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { Outlet, redirect } from "@remix-run/react";
 import { PageContainer } from "~/components/ui/custom/PageContainer";
 import { BackNavigator } from "~/routes/resources+/back-navigator";
+import { isProUser } from "~/utils/auth.server";
+
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const {
+    isPro,
+    user,
+  } = await isProUser(request);
+
+  if ( !user ){
+    return redirect(
+      "/login"
+    )
+  }
+
+  if ( user && !isPro) {
+    return redirect(
+      "/subscriptions/subscription_plans"
+    )
+  }
+};
+
 
 function _layout() {
   return (

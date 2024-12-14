@@ -207,7 +207,16 @@ export function NavigationComponents({ children, theme, loggedIn, userProfile }:
                     <NavigationMenuTrigger
                       className={desktopNavigationTriggerClassName}
                     >
-                      <CircleUserRound></CircleUserRound>
+                      {/* <CircleUserRound></CircleUserRound> */}
+                      <Avatar className="max-w-8 h-8 aspect-square">
+                        <AvatarImage
+                          src={user?.avatarUrl}
+                          alt={user?.username}
+                        ></AvatarImage>
+                        <AvatarFallback>
+                          {`${user?.name?.charAt(0)?.toUpperCase() ?? ''}${user?.lastname?.charAt(0)?.toUpperCase() ?? ''}`}
+                        </AvatarFallback>|
+                      </Avatar>
                       <span>Sesión</span>
                     </NavigationMenuTrigger>
                     <NavigationMenuContent

@@ -85,8 +85,8 @@ const servicesDetails: ServicesDetails[] = [
       title: "Quiz de clasificación VAK",
       description: `Genera una sala para realizar un cuestionario para clasificar a tus estudiantes.
             Se debe ingresar el código generado para unirse a la sala.`,
-      link: "/services/learning-styles",
-      buttonTitle: "Crear Sala",
+      link: "/sections/vak-classification",
+      buttonTitle: "Clasificar estudiante",
     },
   },
   {

@@ -53,6 +53,8 @@ const SubscriptionPage = () => {
             </CardContent>
         </Card>
 
+        
+
         {/* Historial de pagos */}
         <Card className="dark:bg-zinc-800 mb-6">
             <CardHeader>

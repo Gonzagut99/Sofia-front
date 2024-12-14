@@ -42,7 +42,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       return json({ errors, receivedValues }, { status: 400 });
     }
 
-    const { prompt, questionCount } = data;
+    const { prompt} = data;
 
     // Envía el prompt al servicio de IA
     if (!params?.chatId) {
@@ -50,16 +50,11 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
     }
     const aiResponse = await sendPromptToAIService(prompt, params.chatId);
 
-    // Simula el tiempo de procesamiento de la IA
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Devuelve la respuesta de la IA y el conteo de preguntas incrementado
-
-    const bodyResponse = json({ success: true, aiResponse, questionCount: questionCount + 1 });
-    return bodyResponse;
-    // redirect('/services/ai-prompt-input', { 
-    //   headers: { 'Cache-Control': 'no-store' } 
-    // });
+    return json({
+      success: true,
+      aiResponse,
+      questionCount: aiResponse.aiDataBlocks.length,
+    });
   } catch (error) {
     console.error("Error processing AI prompt:", error);
     return json({ error: "Error processing AI prompt" }, { status: 500 });
